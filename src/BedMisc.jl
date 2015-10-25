@@ -1,0 +1,5 @@
+module BedMisc
+
+# package code goes here
+
+end # module
