@@ -39,7 +39,7 @@ function bedtools_intersect(A::DataFrame, B::DataFrame; negate=false,sort=false)
         cmd=`$bedtools_cmd $bedtools_args` |> tmpc
         readall(cmd)
     else
-       cmd=pipeline(`$bedtools_cmd $bedtools_args`,std)
+       cmd=pipeline(`$bedtools_cmd $bedtools_args`,stdout=tmpc)
        run(cmd)
     end
     df=readtable(tmpc,separator='\t',header=false)
