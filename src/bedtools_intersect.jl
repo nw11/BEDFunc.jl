@@ -35,8 +35,13 @@ function bedtools_intersect(A::DataFrame, B::DataFrame; negate=false,sort=false)
      # splices in between 2nd and 1st element with out removing any elements
      splice!(bedtools_args,2:1,["-v"])
     end
-    cmd=`$bedtools_cmd $bedtools_args` |> tmpc
-    readall(cmd)
+    if Base.VERSION < v"0.4.0"
+        cmd=`$bedtools_cmd $bedtools_args` |> tmpc
+        readall(cmd)
+    else
+       cmd=pipeline(`$bedtools_cmd $bedtools_args`,std)
+       run(cmd)
+    end
     df=readtable(tmpc,separator='\t',header=false)
 end
 
