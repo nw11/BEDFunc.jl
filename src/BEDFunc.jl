@@ -6,6 +6,7 @@ export write_bedfile
 include(Pkg.dir("BEDFunc","src","bedtools_intersect.jl"))
 
 export load_dataframe_from_url
+export run_cmd
 include(Pkg.dir("BEDFunc","src","misc.jl"))
 
 export query

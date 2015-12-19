@@ -16,3 +16,19 @@ function load_dataframe_from_url(url,readtable_options={:separator=>'\t'})
     df= readtable(tmpfile;readtable_options...)
     return (df,tmpfile)
 end
+
+"""
+  run_cmd
+
+  To handle compatibility between 0.3 and 0.4
+
+"""
+function run_cmd(bedtools_cmd,bedtools_args,outfile)
+  if Base.VERSION < v"0.4.0"
+        cmd=`$bedtools_cmd $bedtools_args` |> outfile
+        readall(cmd)
+    else
+       cmd=pipeline(`$bedtools_cmd $bedtools_args`,stdout=outfile)
+       run(cmd)
+    end
+end
