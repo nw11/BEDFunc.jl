@@ -39,7 +39,7 @@ function bedtools_intersect(A::DataFrame, B::DataFrame; negate=false,sort=false)
     df=readtable(tmpc,separator='\t',header=false)
 end
 
-function bedtools_intersect(pathA::String, B::DataFrame;negate=false,sort=false)
+function bedtools_intersect(pathA::AbstractString, B::DataFrame;negate=false,sort=false)
 
     tmpdir = tempdir()
     tmpb=joinpath( tmpdir, "B")
@@ -59,7 +59,7 @@ function bedtools_intersect(pathA::String, B::DataFrame;negate=false,sort=false)
     df=readtable(tmpc,separator='\t',header=false)
 end
 
-function bedtools_intersect(pathA::String, pathB::String;negate=false)
+function bedtools_intersect(pathA::AbstractString, pathB::AbstractString;negate=false)
     tmpdir = tempdir()
     tmpc=joinpath( tmpdir, "C")
     bedtools_cmd="bedtools"
