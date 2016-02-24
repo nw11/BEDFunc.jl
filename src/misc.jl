@@ -9,7 +9,7 @@ using DataFrames
 
    Until I can figure out how to use Requests to download dropbox links
 """
-function load_dataframe_from_url(url,readtable_options={:separator=>'\t'})
+function load_dataframe_from_url(url,readtable_options=Dict{Symbol,Char}(:separator=>'\t') )
     tmpfile = tempname()
     curl_cmd=`curl -L $url` |> tmpfile
     readall(curl_cmd)
@@ -21,7 +21,6 @@ end
   run_cmd
 
   To handle compatibility between 0.3 and 0.4
-
 """
 function run_cmd(bedtools_cmd,bedtools_args,outfile)
   if Base.VERSION < v"0.4.0"
