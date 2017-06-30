@@ -1,3 +1,4 @@
+using DataFrames
 """
   parse_gtf_gene_features_to_df
 
@@ -14,9 +15,9 @@ function parse_gtf_gene_features_to_df(filename, gene_ids, feature_types)
     header_pat    = r"^#" #<-bug2
     gene_name_pat = r"gene_name\s+\"?([^\s]+)\";"
     gene_type_pat = r"gene_type\s+\"?([^\s]+)\";"
-    features_df =DataFrame(seq_id=ASCIIString[], start_pos=Int[],stop_pos=Int[],
-                           strand=ASCIIString[], gene_id=ASCIIString[],
-                           feature_type=ASCIIString[], gene_name=ASCIIString[],gene_type=ASCIIString[])
+    features_df =DataFrame(seq_id=String[], start_pos=Int[],stop_pos=Int[],
+                           strand=String[], gene_id=String[],
+                           feature_type=String[], gene_name=String[],gene_type=String[])
     line_count = 0
     for line in eachline(open(filename))
         if ismatch(header_pat,line)
@@ -43,7 +44,7 @@ function parse_gtf_gene_features_to_df(filename, gene_ids, feature_types)
            end
        end
        #println("Got $row_gene_id")
-       push!(features_df, [row[1],parseint(row[4]), parseint(row[5]),row[7], row_gene_id,feature_type,row_gene_name,row_gene_type])
+       push!(features_df, [row[1],parse(Int64,row[4]), parse(Int64,row[5]),row[7], row_gene_id,feature_type,row_gene_name,row_gene_type])
     end
     return features_df
 end
