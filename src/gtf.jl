@@ -1,4 +1,5 @@
 using DataFrames
+using Libz
 """
   parse_gtf_gene_features_to_df
 
@@ -19,7 +20,12 @@ function parse_gtf_gene_features_to_df(filename, gene_ids, feature_types)
                            strand=String[], gene_id=String[],
                            feature_type=String[], gene_name=String[],gene_type=String[])
     line_count = 0
-    for line in eachline(open(filename))
+    io=open(filename)
+    if ismatch(Regex(".gz\$"),filename)
+        io=ZlibInflateInputStream(io,reset_on_end=true)
+    end
+
+    for line in eachline(io)
         if ismatch(header_pat,line)
           continue
         end
