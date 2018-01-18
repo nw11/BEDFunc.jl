@@ -17,7 +17,7 @@ function write_bedfile(output_path,df::DataFrame;sort=true,seq_id_colname=:seq_i
     end
     writetable( output_path, df, separator='\t', header=false)
     cmd = `sed -i -s 's/\"//g' $output_path` #"
-    readall(cmd)
+    readstring(cmd)
 end
 
 # cross over two dataframes using basic bedtools intersect
