@@ -103,7 +103,7 @@ function query_features_to_query_str(df::DataFrame)
    return join(rows,"\n")
 end
 
-function query_features_from_bed_file(bedfile::ASCIIString, query_feature_df::DataFrame)
+function query_features_from_bed_file(bedfile::String, query_feature_df::DataFrame)
     df = DataFrame()
     sort!(query_feature_df)
     query_str = query_features_to_query_str( query_feature_df)

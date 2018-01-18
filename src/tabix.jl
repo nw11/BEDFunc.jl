@@ -52,7 +52,7 @@ end
     Query
 """
 
-function query(filepath::ASCIIString,query::Array{BEDQuery})
+function query(filepath::String,query::Array{BEDQuery})
     query_idx=1
     query_str_array = make_query_str(query)
     cmd = `tabix -p bed $filepath $query_str_array`
@@ -114,5 +114,3 @@ end
 #println("CHANGE AT $seq_id, $start,$stop,$score")
 # println("NEXT INTERVAL $seq_id, $query_start_pos,$query_stop_pos,$score")
 #println("IS $start_pos GREATER THAN $(query[query_idx].stop_pos) ?")
-
-
