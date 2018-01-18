@@ -4,8 +4,8 @@
 """
 
 type BEDQuery
-  qid::UTF8String
-  seq_id::UTF8String
+  qid::String
+  seq_id::String
   start_pos::Integer
   stop_pos::Integer
 end
@@ -15,7 +15,7 @@ end
    make_query_path
 """
 function make_query_str(queries::Array{BEDQuery} )
-    query_array = UTF8String[]
+    query_array = String[]
     for query in queries
         str="$(query.seq_id):$(query.start_pos)-$(query.stop_pos)"
         push!(query_array, str)
@@ -56,7 +56,7 @@ function query(filepath::String,query::Array{BEDQuery})
     query_idx=1
     query_str_array = make_query_str(query)
     cmd = `tabix -p bed $filepath $query_str_array`
-    D = Dict{UTF8String,Array{Float32}}()
+    D = Dict{String,Array{Float32}}()
     (query_seq_id,query_start_pos,
      query_stop_pos,query_length,V) = initiate(query[query_idx])
     for line in eachline(cmd)
